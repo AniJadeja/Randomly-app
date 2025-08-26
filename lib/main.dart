@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:randomly/pages/signup/age_screen.dart';
 import 'package:randomly/pages/signup/gender_screen.dart';
 import 'package:randomly/pages/signup/intro_screen.dart';
 import 'package:randomly/pages/signup/start_screen.dart';
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
       theme: lightTheme,
       darkTheme: darkTheme,
 
-      home: GenderPickerScreen(),
+      home: AgePickerScreen(),
     );
   }
 }

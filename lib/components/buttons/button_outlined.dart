@@ -46,7 +46,7 @@ class ButtonOutlined extends StatelessWidget {
         child: ElevatedButton(
           style: primaryButtonStyle,
           onPressed: onPressed,
-          child: Text(text, style: AppTextTheme.textButtonPrimary),
+          child: Text(text, style: textTheme.bodyLarge),
         ),
       ),
     );

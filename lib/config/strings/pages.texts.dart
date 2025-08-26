@@ -18,3 +18,7 @@ final String disclaimer =
 final String genderDisclosureString = "Disclosing your gender helps builds trust among community and maintains integrity of subsequent chats";
 final String genderSelectorInstruction = "Please choose your gender";
 
+// Age Picker Screen
+
+final String ageDisclosureString = "This platform is restricted to people of age 18 and above this disclosing your age is required";
+final String actionWarningString = "This action is irreversible. You may not change your age later and your age will remain invisible to others.";

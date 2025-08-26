@@ -54,6 +54,10 @@ class AppTextTheme {
     letterSpacing: 2.0,
   );
 
+  static final TextStyle textButtonOutlinedDark = _baseDark.copyWith(
+    fontSize: bodyLargeTextSize,
+  );
+
   static final TextStyle textHeading2Dark = textHeadingDark.copyWith(
     fontSize: _heading2Size,
   );
@@ -79,6 +83,11 @@ class AppTextTheme {
     fontSize: _heading1Size,
     fontWeight: FontWeight.bold,
     color: primaryBlack,
+  );
+
+
+  static final TextStyle textButtonOutlinedLight = _baseLight.copyWith(
+    fontSize: bodyLargeTextSize,
   );
 
   static final TextStyle textHeading2Light = textHeadingLight.copyWith(

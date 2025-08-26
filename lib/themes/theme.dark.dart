@@ -8,7 +8,7 @@ final ThemeData darkTheme = ThemeData(
     seedColor: primaryAccent,
     brightness: Brightness.dark,
     // You can also override the dark theme surface
-    surface: primaryBlack,
+    // surface: primaryBlack,
     onSurface: primaryWhite,
   ),
   textTheme: TextTheme(

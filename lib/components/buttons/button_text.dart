@@ -27,7 +27,7 @@ class ButtonText extends StatelessWidget {
       child: TextButton(
         style: textButtonStyle,
         onPressed: onPressed,
-        child: Text(text, style: AppTextTheme.textButtonPrimary),
+        child: Text(text, style: Theme.of(context).textTheme.bodyLarge),
       ),
     );
   }

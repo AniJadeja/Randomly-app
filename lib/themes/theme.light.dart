@@ -8,8 +8,8 @@ final ThemeData lightTheme = ThemeData(
     seedColor: primaryAccent,
     brightness: Brightness.light,
     // Override the calculated surface color
-    surface: primaryWhite,
-    onSurface: primaryBlack,
+    // surface: primaryWhite,
+    // onSurface: primaryBlack,
   ),
   textTheme: TextTheme(
     displayLarge: AppTextTheme.textHeadingLight,
