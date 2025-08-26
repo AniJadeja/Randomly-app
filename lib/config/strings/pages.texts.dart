@@ -13,3 +13,8 @@ final String randomlyIntroString =
 final String disclaimer =
     "Although, people get connected anonymously, to maintain the integrity of the chat, gender and age is required";
 
+// Gender Selector Screen
+
+final String genderDisclosureString = "Disclosing your gender helps builds trust among community and maintains integrity of subsequent chats";
+final String genderSelectorInstruction = "Please choose your gender";
+
