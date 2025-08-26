@@ -30,7 +30,7 @@ class ButtonOutlined extends StatelessWidget {
 
     final ButtonStyle primaryButtonStyle = ButtonStyle(
       backgroundColor: WidgetStateProperty.all(theme.scaffoldBackgroundColor),
-      overlayColor: WidgetStateProperty.all(Colors.purpleAccent.withAlpha(15)),
+      overlayColor: WidgetStateProperty.all(primaryAccent.withAlpha(15)),
       fixedSize: WidgetStateProperty.all(Size(buttonWidth, buttonHeight)),
     );
 

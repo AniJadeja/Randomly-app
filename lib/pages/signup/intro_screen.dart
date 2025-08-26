@@ -82,7 +82,7 @@ class IntroScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ButtonPrimary(text: iUnderstandButtonText, onPressed: () {}),
+                ButtonPrimary(text: iUnderstandButtonText, width: 245 ,onPressed: () {}),
                 Container(
                   margin: EdgeInsets.only(top: 24),
                   child: Stack(

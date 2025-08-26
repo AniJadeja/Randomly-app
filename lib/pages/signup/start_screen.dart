@@ -55,6 +55,7 @@ class StartScreen extends StatelessWidget {
                 children: [
                   ButtonPrimary(
                     text: startScreenPrimaryButtonString,
+                    width: 245,
                     onPressed: () {},
                   ),
                   const SizedBox(height: 8),

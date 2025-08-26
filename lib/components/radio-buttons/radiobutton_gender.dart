@@ -19,10 +19,10 @@ class GenderSelector extends StatefulWidget {
   final ValueChanged<Gender> onChanged;
 
   @override
-  State<GenderSelector> createState() => _GenderSelectorState();
+  State<GenderSelector> createState() => GenderSelectorState();
 }
 
-class _GenderSelectorState extends State<GenderSelector> {
+class GenderSelectorState extends State<GenderSelector> {
   // The state variable to hold the currently selected gender.
   // It is nullable to represent the initial state where nothing is selected.
   Gender? _selectedGender;
@@ -30,16 +30,20 @@ class _GenderSelectorState extends State<GenderSelector> {
   // This function is called when a radio button is tapped.
   // It updates the internal state and notifies the parent via the callback.
   void _selectGender(Gender gender) {
-    // Only update if the selected gender is different.
     if (_selectedGender != gender) {
       setState(() {
         _selectedGender = gender;
       });
-      // Call the parent's onChanged callback with the new value.
       widget.onChanged(gender);
     }
   }
 
+  // 3. Add the public method to clear the state.
+  void clearSelection() {
+    setState(() {
+      _selectedGender = null;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -77,7 +81,7 @@ class _GenderSelectorState extends State<GenderSelector> {
         GestureDetector(
           onTap: () => _selectGender(Gender.female),
           child: Stack(
-            alignment: AlignmentGeometry.topCenter,
+            alignment: Alignment.topCenter,
             children: [
               SvgPicture.asset(
                 _selectedGender == Gender.female

@@ -28,12 +28,13 @@ class ButtonPrimary extends StatelessWidget {
     final ButtonStyle primaryButtonStyle = ButtonStyle(
       backgroundColor: WidgetStateProperty.all(primaryAccent),
       elevation: WidgetStateProperty.all(5.0),
-      overlayColor: WidgetStateProperty.all(Colors.purpleAccent.withAlpha(15)),
+      overlayColor: WidgetStateProperty.all(primaryAccent.withAlpha(15)),
       shadowColor: WidgetStateProperty.all(buttonShadow),
       fixedSize: WidgetStateProperty.all(Size(buttonWidth, buttonHeight)),
     );
 
-    return Expanded(
+    return SizedBox(
+      width: buttonWidth,
       child: ElevatedButton(
         style: primaryButtonStyle,
         onPressed: onPressed,

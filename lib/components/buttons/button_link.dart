@@ -10,7 +10,7 @@ class ButtonLink extends StatelessWidget {
 
   static ButtonStyle textButtonStyle = ButtonStyle(
     backgroundColor: WidgetStateProperty.all(Colors.transparent),
-    overlayColor: WidgetStateProperty.all(primaryAccent.withAlpha(0)),
+    overlayColor: WidgetStateProperty.all(Colors.transparent),
   );
 
   const ButtonLink({super.key, required this.text, required this.onPressed});
