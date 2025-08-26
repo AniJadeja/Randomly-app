@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:randomly/pages/signup/intro_screen.dart';
 import 'package:randomly/pages/signup/start_screen.dart';
 import 'package:randomly/themes/theme.dark.dart';
 import 'package:randomly/themes/theme.light.dart';
@@ -7,6 +9,7 @@ import 'config/config.dart';
 import 'pages/home_screen.dart';
 
 void main() {
+  debugPaintSizeEnabled = false; // This is the key line
   runApp(const MyApp());
 }
 
@@ -23,7 +26,7 @@ class MyApp extends StatelessWidget {
       theme: lightTheme,
       darkTheme: darkTheme,
 
-      home: StartScreen(),
+      home: IntroScreen(),
     );
   }
 }

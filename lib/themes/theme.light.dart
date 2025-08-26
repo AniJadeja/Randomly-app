@@ -13,6 +13,7 @@ final ThemeData lightTheme = ThemeData(
   ),
   textTheme: TextTheme(
     displayLarge: AppTextTheme.textHeadingLight,
+    displayMedium: AppTextTheme.textHeading2Light,
     bodyLarge: AppTextTheme.textPrimaryLight,
     bodyMedium: AppTextTheme.textSecondaryLight,
     bodySmall: AppTextTheme.textSmallLight,

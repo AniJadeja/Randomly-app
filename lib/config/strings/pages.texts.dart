@@ -5,3 +5,11 @@ final String termsString2 = "terms & conditions ";
 final String termsString3 = "of usage";
 final String couldNotLaunchUrlError = "Could not launch ";
 final String verticalText = "Meet People from everywhere -->";
+
+// Intro Screen Page
+
+final String randomlyIntroString =
+    "Randomly connects people from all around the globe anonymously";
+final String disclaimer =
+    "Although, people get connected anonymously, to maintain the integrity of the chat, gender and age is required";
+

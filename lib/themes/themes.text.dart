@@ -4,82 +4,98 @@ import 'package:randomly/config/config.dart';
 class AppTextTheme {
   AppTextTheme();
 
-  // Theme agnostic Text Styles
+  // Define a single base style that all others will inherit from.
+  static const String _fontFamily = "InriaSans";
 
-  static TextStyle textButtonPrimary = TextStyle(
-    fontFamily: "InriaSans",
-    fontSize: 16,
+  static const double _heading1Size = 32;
+  static const double _heading2Size = 24;
+
+  static const double bodyLargeTextSize = 16;
+  static const double _bodyMediumTextSize = 14;
+  static const double _bodySmallTextSize = 10;
+
+  static final TextStyle _baseTextStyle = TextStyle(
+    fontFamily: _fontFamily,
     fontWeight: FontWeight.normal,
+    letterSpacing: 1.0,
+  );
+
+  // --- Theme-agnostic Text Styles ---
+  // Styles that don't change between dark and light themes.
+
+  static final TextStyle textButtonPrimary = _baseTextStyle.copyWith(
+    fontSize: bodyLargeTextSize,
     color: primaryWhite,
-    letterSpacing: 1,
   );
 
-  static TextStyle verticalText = TextStyle(
-    fontWeight: FontWeight.normal,
-    fontSize: 17,
+  static final TextStyle verticalText = _baseTextStyle.copyWith(
+    fontSize: bodyLargeTextSize,
+    color: secondaryOnDark, // This one is dependent on the dark theme
+    letterSpacing: 2.0,
+  );
+
+  // --- Base Styles for each theme ---
+  // Define a base style for each theme to handle color and weight variations.
+
+  static final TextStyle _baseDark = _baseTextStyle.copyWith(
     color: secondaryOnDark,
-    letterSpacing: 2,
-    fontFamily: "InriaSans",
   );
 
-  // Dark Theme Text Styles
+  static final TextStyle _baseLight = _baseTextStyle.copyWith(
+    color: secondaryOnLight,
+  );
 
-  static TextStyle textHeadingDark = TextStyle(
-    fontFamily: "InriaSans",
-    fontSize: 32,
+  // --- Dark Theme Text Styles ---
+
+  static final TextStyle textHeadingDark = _baseDark.copyWith(
+    fontSize: _heading1Size,
     fontWeight: FontWeight.bold,
     color: primaryWhite,
-    letterSpacing: 2,
+    letterSpacing: 2.0,
   );
 
-  static TextStyle textPrimaryDark = TextStyle(
-    fontFamily: "InriaSans",
-    fontSize: 16,
-    fontWeight: FontWeight.normal,
-    color: secondaryOnDark,
+  static final TextStyle textHeading2Dark = textHeadingDark.copyWith(
+    fontSize: _heading2Size,
   );
 
-  static TextStyle textSecondaryDark = TextStyle(
-    fontFamily: "InriaSans",
-    fontSize: 14,
+  static final TextStyle textPrimaryDark = _baseDark.copyWith(
+    fontSize: bodyLargeTextSize,
+  );
+
+  static final TextStyle textSecondaryDark = _baseDark.copyWith(
+    fontSize: _bodyMediumTextSize,
     fontWeight: FontWeight.w300,
-    color: secondaryOnDark,
   );
 
-  static TextStyle textSmallDark = TextStyle(
-    fontFamily: "InriaSans",
-    fontSize: 10,
+  static final TextStyle textSmallDark = _baseDark.copyWith(
+    fontSize: _bodySmallTextSize,
     fontWeight: FontWeight.w400,
-    color: secondaryOnDark,
   );
 
-  // Light Theme Text Styles
 
-  static TextStyle textHeadingLight = TextStyle(
-    fontFamily: "InriaSans",
-    fontSize: 24,
+  // --- Light Theme Text Styles ---
+
+  static final TextStyle textHeadingLight = _baseLight.copyWith(
+    fontSize: _heading1Size,
     fontWeight: FontWeight.bold,
     color: primaryBlack,
   );
 
-  static TextStyle textPrimaryLight = TextStyle(
-    fontFamily: "InriaSans",
-    fontSize: 16,
-    fontWeight: FontWeight.normal,
-    color: secondaryOnLight,
+  static final TextStyle textHeading2Light = textHeadingLight.copyWith(
+    fontSize: _heading2Size,
   );
 
-  static TextStyle textSecondaryLight = TextStyle(
-    fontFamily: "InriaSans",
-    fontSize: 14,
+  static final TextStyle textPrimaryLight = _baseLight.copyWith(
+    fontSize: bodyLargeTextSize,
+  );
+
+  static final TextStyle textSecondaryLight = _baseLight.copyWith(
+    fontSize: _bodyMediumTextSize,
     fontWeight: FontWeight.w300,
-    color: secondaryOnLight,
   );
 
-  static TextStyle textSmallLight = TextStyle(
-    fontFamily: "InriaSans",
-    fontSize: 10,
+  static final TextStyle textSmallLight = _baseLight.copyWith(
+    fontSize: _bodySmallTextSize,
     fontWeight: FontWeight.w400,
-    color: secondaryOnLight,
   );
 }
