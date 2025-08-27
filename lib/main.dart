@@ -3,44 +3,40 @@ import 'package:flutter/rendering.dart';
 import 'package:randomly/pages/signup/start_screen.dart';
 import 'package:randomly/realm-db/models/session/session_current.dart';
 import 'package:randomly/realm-db/realm_config.dart';
-import 'package:randomly/services/deviceinfo.dart';
-import 'package:randomly/services/location.dart';
 import 'package:randomly/themes/theme.dark.dart';
 import 'package:randomly/themes/theme.light.dart';
-import 'package:realm/realm.dart';
 import 'config/config.dart';
-import 'package:uuid/uuid.dart';
 import 'dart:math';
 
 void main() {
   debugPaintSizeEnabled = false; // This is the key line
   runApp(const MyApp());
-
-  final sessionRepository = RealmManager.getInstance(
-    schemas: [SessionCurrent.schema, Location.schema],
-  ).getRepository<SessionCurrent>();
-
-  final random = Random();
-  final randomNumber = random.nextInt(100000);
-  final String newSessionId = randomNumber.toString();
-  final location = Location("lat", "long", "locationName");
-
-  final session = SessionCurrent(
-    newSessionId,
-    DateTime.now(),
-    "jwt",
-    "refreshToken",
-    location: location,
-  );
-
-  // add session
-  sessionRepository.add(session);
-
-  final sessions = sessionRepository.getAll();
-  print("Sessions : ");
-  sessions.forEach((session) {
-    print(session.toEJson());
-  });
+  //
+  // final sessionRepository = RealmManager.getInstance(
+  //   schemas: [SessionCurrent.schema, Location.schema],
+  // ).getRepository<SessionCurrent>();
+  //
+  // final random = Random();
+  // final randomNumber = random.nextInt(100000);
+  // final String newSessionId = randomNumber.toString();
+  // final location = Location("lat", "long", "locationName");
+  //
+  // final session = SessionCurrent(
+  //   newSessionId,
+  //   DateTime.now(),
+  //   "jwt",
+  //   "refreshToken",
+  //   location: location,
+  // );
+  //
+  // // add session
+  // sessionRepository.add(session);
+  //
+  // final sessions = sessionRepository.getAll();
+  // debugPrint("Sessions : ");
+  // sessions.forEach((session) {
+  //   debugPrint(session.toString());
+  // });
   //
   // // get session by id
   // final SessionCurrent? sessionWithId = sessionRepository.get("id");
@@ -57,18 +53,9 @@ void main() {
   // print('\nDeleting the session...');
   // print('Is session deleted? ${sessionRepository.deleteById(newSessionId)}');
 
-  printServices();
-  
+
 }
 
-void printServices () async {
-
-  DeviceInfoService service = DeviceInfoService();
-  print("Device Info : ${await service.getDeviceInfo()}");
-
-  LocationService locationService = LocationService();
-  print("Location : ${await locationService.getGPSLocation()}");
-}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -76,6 +63,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
+
+
     return MaterialApp(
       title: appName,
       debugShowCheckedModeBanner: false,

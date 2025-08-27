@@ -8,14 +8,30 @@ import 'package:randomly/config/config.dart';
 import 'package:randomly/config/paths.dart';
 import 'package:randomly/config/strings/pages.texts.dart';
 import 'package:randomly/config/strings/buttons.dart';
+import 'package:randomly/services/deviceinfo.dart';
+import 'package:randomly/services/location.dart';
 import 'package:randomly/themes/themes.text.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class StartScreen extends StatelessWidget {
   const StartScreen({super.key});
 
+  void printServices (BuildContext context) async {
+
+    DeviceInfoService service = DeviceInfoService();
+    await service.init(context: context); // Add this line to initialize the service
+    debugPrint("Device Info : ${await service.getDeviceInfo()}");
+
+    LocationService locationService = LocationService();
+    debugPrint("Location : ${await locationService.getGPSLocation(context)}");
+  }
   @override
   Widget build(BuildContext context) {
+
+
+    printServices(context);
+
+
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
 

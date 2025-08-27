@@ -28,7 +28,7 @@ class _AgePickerScreenState extends State<AgePickerScreen> {
     void onSelectedAgeChanged(int number){
       setState(() {
         _selectedAge = number;
-        print("New age : ${_selectedAge}");
+        debugPrint("New age : ${_selectedAge}");
       });
     }
 

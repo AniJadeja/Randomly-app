@@ -24,12 +24,12 @@ class DeviceInfoService {
     try {
       double width = 0;
       double height = 0;
-      double screenRes = 0;
 
       if (context != null) {
         final mediaQuery = MediaQuery.of(context);
         width = mediaQuery.size.width * mediaQuery.devicePixelRatio;
         height = mediaQuery.size.height * mediaQuery.devicePixelRatio;
+
       }
 
       if (Platform.isAndroid) {

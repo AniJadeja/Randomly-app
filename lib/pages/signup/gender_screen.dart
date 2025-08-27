@@ -32,7 +32,7 @@ class _GenderPickerScreenState extends State<GenderPickerScreen> {
       _selectedGender = gender;
       _otherSelected = false; // reset visual state
     });
-    print('Selected gender from the parent: $_selectedGender');
+    debugPrint('Selected gender from the parent: $_selectedGender');
   }
 
   // A new method to clear the gender selection.
