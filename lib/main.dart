@@ -1,53 +1,73 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:randomly/pages/signup/age_screen.dart';
-import 'package:randomly/pages/signup/gender_screen.dart';
-import 'package:randomly/pages/signup/intro_screen.dart';
 import 'package:randomly/pages/signup/start_screen.dart';
-import 'package:randomly/realm-db/models/task.dart';
-import 'package:randomly/realm-db/realm_service.dart';
+import 'package:randomly/realm-db/models/session/session_current.dart';
+import 'package:randomly/realm-db/realm_config.dart';
+import 'package:randomly/services/deviceinfo.dart';
+import 'package:randomly/services/location.dart';
 import 'package:randomly/themes/theme.dark.dart';
 import 'package:randomly/themes/theme.light.dart';
-import 'package:randomly/themes/themes.text.dart';
 import 'package:realm/realm.dart';
 import 'config/config.dart';
-import 'pages/home_screen.dart';
+import 'package:uuid/uuid.dart';
+import 'dart:math';
 
 void main() {
   debugPaintSizeEnabled = false; // This is the key line
   runApp(const MyApp());
 
-  final realmService = RealmService();
+  final sessionRepository = RealmManager.getInstance(
+    schemas: [SessionCurrent.schema, Location.schema],
+  ).getRepository<SessionCurrent>();
 
-  // CREATE
-  final newTask = Task(ObjectId().toString(), 'Learn Flutter');
-  realmService.addTask(newTask);
+  final random = Random();
+  final randomNumber = random.nextInt(100000);
+  final String newSessionId = randomNumber.toString();
+  final location = Location("lat", "long", "locationName");
 
-  // READ
-  // final allTasks = realmService.getAllTasks().toString();
+  final session = SessionCurrent(
+    newSessionId,
+    DateTime.now(),
+    "jwt",
+    "refreshToken",
+    location: location,
+  );
 
+  // add session
+  sessionRepository.add(session);
 
-  // UPDATE
-  realmService.updateTaskStatus(newTask.id, true);
-
-  // DELETE
-  // realmService.deleteTask(newTask.id);
-
-  final allTasks = realmService.getAllTasks();
-  allTasks.forEach((task) {
-    final extendedTask = TaskExtended(task.id, task.name);
-    print(extendedTask);
+  final sessions = sessionRepository.getAll();
+  print("Sessions : ");
+  sessions.forEach((session) {
+    print(session.toEJson());
   });
+  //
+  // // get session by id
+  // final SessionCurrent? sessionWithId = sessionRepository.get("id");
+  // print("Session with id : ${sessionWithId.toEJson()}");
+  //
+  // // update sesion by id
+  // final updated = sessionRepository.updateById("id", (s) {
+  //   s.jwt = "new-jwt";
+  //   s.refreshToken = "new-ref";
+  // });
+  // print("Updated obj jwt :  ${updated.toEJson()}");
+  //
+  // // --- Delete ---
+  // print('\nDeleting the session...');
+  // print('Is session deleted? ${sessionRepository.deleteById(newSessionId)}');
+
+  printServices();
+  
 }
 
-class TaskExtended extends Task {
-  TaskExtended(String id, String name)
-      : super(id, name);
+void printServices () async {
 
-  @override
-  String toString() {
-    return 'Task{id: $id, name: $name';
-  }
+  DeviceInfoService service = DeviceInfoService();
+  print("Device Info : ${await service.getDeviceInfo()}");
+
+  LocationService locationService = LocationService();
+  print("Location : ${await locationService.getGPSLocation()}");
 }
 
 class MyApp extends StatelessWidget {

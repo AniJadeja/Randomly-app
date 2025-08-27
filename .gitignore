@@ -43,6 +43,7 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+/android/build
 
 # keystore config which is used to create the key and stores passwords + alias
 keystore_config.json
