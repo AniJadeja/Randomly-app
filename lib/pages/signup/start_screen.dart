@@ -9,6 +9,7 @@ import 'package:randomly/config/paths.dart';
 import 'package:randomly/config/strings/pages.texts.dart';
 import 'package:randomly/config/strings/buttons.dart';
 import 'package:randomly/config/strings/routes.dart';
+import 'package:randomly/navigation/preload_manager.dart';
 import 'package:randomly/pages/signup/intro_screen.dart';
 import 'package:randomly/services/db-interaction/user_device_info_service.dart';
 import 'package:randomly/themes/themes.text.dart';
@@ -25,21 +26,6 @@ class StartScreen extends StatefulWidget {
 class _StartScreenState extends State<StartScreen> {
   bool _initialized = false;
 
-  late Widget introScreenPreview;
-  bool _preloaded = false;
-
-  @override
-  void initState() {
-    super.initState();
-    // Preload IntroScreen
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      setState(() {
-        introScreenPreview = IntroScreen(); // Build IntroScreen off-screen
-        _preloaded = true;
-      });
-    });
-  }
-
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -52,18 +38,19 @@ class _StartScreenState extends State<StartScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        // Actual Start Screen UI (as before)
-        buildMainContent(context),
-
-        // Invisible preloaded screen
-        if (_preloaded) Offstage(offstage: true, child: introScreenPreview),
-      ],
+    return PreloadManager(
+      routesToPreload: {
+        introScreenRoute: (_) => IntroScreen(),
+      },
+      child: _startScreenWidget(),
     );
   }
 
-  Widget buildMainContent(BuildContext context) {
+
+  Widget _startScreenWidget() {
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
+
     Future<void> openUrl(String url) async {
       final Uri uri = Uri.parse(url);
       if (await canLaunchUrl(uri)) {
@@ -72,9 +59,6 @@ class _StartScreenState extends State<StartScreen> {
         throw '$couldNotLaunchUrlError $url';
       }
     }
-
-    final theme = Theme.of(context);
-    final textTheme = theme.textTheme;
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
@@ -101,15 +85,8 @@ class _StartScreenState extends State<StartScreen> {
                   ButtonPrimary(
                     text: startScreenPrimaryButtonString,
                     width: 245,
-                    onPressed: () async {
-                      final startTime = DateTime.now();
-                      log("Navigation started at $startTime");
-
-                      Navigator.pushNamed(context, introScreenRoute).then((_) {
-                        final endTime = DateTime.now();
-                        final diff = endTime.difference(startTime);
-                        log("Returned from IntroScreen. Nav duration: $diff");
-                      });
+                    onPressed: () {
+                      Navigator.pushNamed(context, introScreenRoute);
                     },
                   ),
                   const SizedBox(height: 8),
