@@ -70,6 +70,31 @@ class RealmRepository<T extends RealmObject> {
     return get(id);
   }
 
+  /// Tries to find an object by it's id. If the object is not present then creates it.
+  /// If the object is present then updates it.
+  /// Will never create duplicate of it.
+  T manageById({
+    required dynamic id,
+    required T Function(T? existing) manageCallback,
+  }) {
+    T? existing = get(id);
+
+    realm.write(() {
+      if (existing == null) {
+        // Let callback create a new instance
+        existing = manageCallback(null);
+        realm.add(existing!); // Add only if new
+      } else {
+        // Let callback update existing instance
+        manageCallback(existing);
+      }
+    });
+
+    return existing!;
+  }
+
+
+
   /// --- DELETE Operations ---
 
   /// Deletes a single object from the database.
