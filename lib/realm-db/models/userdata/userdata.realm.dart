@@ -11,9 +11,9 @@ part of 'userdata.dart';
 // ignore_for_file: type=lint
 class UserData extends _UserData
     with RealmEntity, RealmObjectBase, RealmObject {
-  UserData(String userId, DateTime signUpTimeStamp, String gender, int age) {
+  UserData(String id, String userId, String gender, int age) {
+    RealmObjectBase.set(this, 'id', id);
     RealmObjectBase.set(this, 'userId', userId);
-    RealmObjectBase.set(this, 'signUpTimeStamp', signUpTimeStamp);
     RealmObjectBase.set(this, 'gender', gender);
     RealmObjectBase.set(this, 'age', age);
   }
@@ -21,16 +21,14 @@ class UserData extends _UserData
   UserData._();
 
   @override
+  String get id => RealmObjectBase.get<String>(this, 'id') as String;
+  @override
+  set id(String value) => RealmObjectBase.set(this, 'id', value);
+
+  @override
   String get userId => RealmObjectBase.get<String>(this, 'userId') as String;
   @override
   set userId(String value) => RealmObjectBase.set(this, 'userId', value);
-
-  @override
-  DateTime get signUpTimeStamp =>
-      RealmObjectBase.get<DateTime>(this, 'signUpTimeStamp') as DateTime;
-  @override
-  set signUpTimeStamp(DateTime value) =>
-      RealmObjectBase.set(this, 'signUpTimeStamp', value);
 
   @override
   String get gender => RealmObjectBase.get<String>(this, 'gender') as String;
@@ -55,8 +53,8 @@ class UserData extends _UserData
 
   EJsonValue toEJson() {
     return <String, dynamic>{
+      'id': id.toEJson(),
       'userId': userId.toEJson(),
-      'signUpTimeStamp': signUpTimeStamp.toEJson(),
       'gender': gender.toEJson(),
       'age': age.toEJson(),
     };
@@ -67,14 +65,14 @@ class UserData extends _UserData
     if (ejson is! Map<String, dynamic>) return raiseInvalidEJson(ejson);
     return switch (ejson) {
       {
+        'id': EJsonValue id,
         'userId': EJsonValue userId,
-        'signUpTimeStamp': EJsonValue signUpTimeStamp,
         'gender': EJsonValue gender,
         'age': EJsonValue age,
       } =>
         UserData(
+          fromEJson(id),
           fromEJson(userId),
-          fromEJson(signUpTimeStamp),
           fromEJson(gender),
           fromEJson(age),
         ),
@@ -86,8 +84,8 @@ class UserData extends _UserData
     RealmObjectBase.registerFactory(UserData._);
     register(_toEJson, _fromEJson);
     return const SchemaObject(ObjectType.realmObject, UserData, 'UserData', [
-      SchemaProperty('userId', RealmPropertyType.string, primaryKey: true),
-      SchemaProperty('signUpTimeStamp', RealmPropertyType.timestamp),
+      SchemaProperty('id', RealmPropertyType.string, primaryKey: true),
+      SchemaProperty('userId', RealmPropertyType.string),
       SchemaProperty('gender', RealmPropertyType.string),
       SchemaProperty('age', RealmPropertyType.int),
     ]);

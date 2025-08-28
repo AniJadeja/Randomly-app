@@ -8,7 +8,8 @@ import 'package:randomly/config/config.dart';
 import 'package:randomly/config/paths.dart';
 import 'package:randomly/config/strings/pages.texts.dart';
 import 'package:randomly/config/strings/buttons.dart';
-import 'package:randomly/services/deviceinfo.dart';
+import 'package:randomly/services/db-interaction/user_data_service.dart';
+import 'package:randomly/services/db-interaction/user_device_info_service.dart';
 import 'package:randomly/themes/themes.text.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -32,9 +33,14 @@ class _StartScreenState extends State<StartScreen> {
   }
 
   void printServices(BuildContext context) async {
-    DeviceInfoService service = DeviceInfoService();
-    debugPrint("Initing device info service...");
-    await service.init(context: context);
+    UserDeviceInfoService service = UserDeviceInfoService(context);
+    service.registerDeviceInfo();
+    debugPrint("Device Info in DB : ${service.fetchDeviceInfo()}");
+
+    UserDataService dataService = UserDataService();
+    dataService.registerUserData("userId", "gender", 0);
+    debugPrint("User Data in DB : ${dataService.fetchUserData()}");
+
   }
 
   @override
