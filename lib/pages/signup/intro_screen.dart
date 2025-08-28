@@ -7,6 +7,7 @@ import 'package:randomly/config/config.dart';
 import 'package:randomly/config/paths.dart';
 import 'package:randomly/config/strings/buttons.dart';
 import 'package:randomly/config/strings/pages.texts.dart';
+import 'package:randomly/config/strings/routes.dart';
 
 class IntroScreen extends StatelessWidget {
   const IntroScreen({super.key});
@@ -82,12 +83,23 @@ class IntroScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ButtonPrimary(text: iUnderstandButtonText, width: 245 ,onPressed: () {}),
+                ButtonPrimary(
+                  text: iUnderstandButtonText,
+                  width: 245,
+                  onPressed: () {
+                    Navigator.pushNamed(context, startScreenRoute);
+                  },
+                ),
                 Container(
                   margin: EdgeInsets.only(top: 24),
                   child: Stack(
                     children: [
-                      ButtonText(text: cancelButtonString, onPressed: () {}),
+                      ButtonText(
+                        text: cancelButtonString,
+                        onPressed: () {
+                          Navigator.pushNamed(context, startScreenRoute);
+                        },
+                      ),
                       Positioned(
                         right: 24,
                         child: ButtonLink(

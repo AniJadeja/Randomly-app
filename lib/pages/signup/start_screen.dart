@@ -8,10 +8,12 @@ import 'package:randomly/config/config.dart';
 import 'package:randomly/config/paths.dart';
 import 'package:randomly/config/strings/pages.texts.dart';
 import 'package:randomly/config/strings/buttons.dart';
-import 'package:randomly/services/db-interaction/user_data_service.dart';
+import 'package:randomly/config/strings/routes.dart';
+import 'package:randomly/pages/signup/intro_screen.dart';
 import 'package:randomly/services/db-interaction/user_device_info_service.dart';
 import 'package:randomly/themes/themes.text.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'dart:developer';
 
 class StartScreen extends StatefulWidget {
   const StartScreen({super.key});
@@ -23,31 +25,45 @@ class StartScreen extends StatefulWidget {
 class _StartScreenState extends State<StartScreen> {
   bool _initialized = false;
 
+  late Widget introScreenPreview;
+  bool _preloaded = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Preload IntroScreen
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      setState(() {
+        introScreenPreview = IntroScreen(); // Build IntroScreen off-screen
+        _preloaded = true;
+      });
+    });
+  }
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (!_initialized) {
       _initialized = true;
-      printServices(context);
+      UserDeviceInfoService service = UserDeviceInfoService(context);
+      service.registerDeviceInfo();
     }
-  }
-
-  void printServices(BuildContext context) async {
-    UserDeviceInfoService service = UserDeviceInfoService(context);
-    service.registerDeviceInfo();
-    debugPrint("Device Info in DB : ${service.fetchDeviceInfo()}");
-
-    UserDataService dataService = UserDataService();
-    dataService.registerUserData("userId", "gender", 0);
-    debugPrint("User Data in DB : ${dataService.fetchUserData()}");
-
   }
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final textTheme = theme.textTheme;
+    return Stack(
+      children: [
+        // Actual Start Screen UI (as before)
+        buildMainContent(context),
 
+        // Invisible preloaded screen
+        if (_preloaded) Offstage(offstage: true, child: introScreenPreview),
+      ],
+    );
+  }
+
+  Widget buildMainContent(BuildContext context) {
     Future<void> openUrl(String url) async {
       final Uri uri = Uri.parse(url);
       if (await canLaunchUrl(uri)) {
@@ -57,12 +73,14 @@ class _StartScreenState extends State<StartScreen> {
       }
     }
 
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
+
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       body: SafeArea(
         child: Stack(
           children: [
-            // Centered Logo & Title
             Center(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -73,10 +91,8 @@ class _StartScreenState extends State<StartScreen> {
                 ],
               ),
             ),
-
-            // Bottom-Aligned Button + Text
             Positioned(
-              bottom: 24, // bottom margin
+              bottom: 24,
               left: 0,
               right: 0,
               child: Column(
@@ -85,7 +101,16 @@ class _StartScreenState extends State<StartScreen> {
                   ButtonPrimary(
                     text: startScreenPrimaryButtonString,
                     width: 245,
-                    onPressed: () {},
+                    onPressed: () async {
+                      final startTime = DateTime.now();
+                      log("Navigation started at $startTime");
+
+                      Navigator.pushNamed(context, introScreenRoute).then((_) {
+                        final endTime = DateTime.now();
+                        final diff = endTime.difference(startTime);
+                        log("Returned from IntroScreen. Nav duration: $diff");
+                      });
+                    },
                   ),
                   const SizedBox(height: 8),
                   Padding(
@@ -96,13 +121,9 @@ class _StartScreenState extends State<StartScreen> {
                         style: textTheme.bodySmall,
                         children: [
                           TextSpan(text: termsString1),
-
                           TextSpan(
                             text: termsString2,
-                            style: textTheme.bodySmall?.copyWith(
-                              // color: Colors.blue,
-                              // decoration: TextDecoration.underline,
-                            ),
+                            style: textTheme.bodySmall,
                             recognizer: TapGestureRecognizer()
                               ..onTap = () =>
                                   openUrl("https://example.com/terms"),
@@ -119,7 +140,7 @@ class _StartScreenState extends State<StartScreen> {
               bottom: 80,
               right: 32,
               child: RotatedBox(
-                quarterTurns: 3, // 1 = 90°, 2 = 180°, 3 = 270°
+                quarterTurns: 3,
                 child: Text(verticalText, style: AppTextTheme.verticalText),
               ),
             ),
