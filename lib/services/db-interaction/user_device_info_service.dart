@@ -15,16 +15,12 @@ Map<String, dynamic> deviceInfoToJsonMap(DeviceInfo info) {
       'Width': info.screenResolution?.width,
     },
     'OS': info.os,
-    'Fingerprint': info.fingerprint,
     'Manufacturer': info.manufacturer,
     'OSVersion': info.osVersion,
     'API': info.api,
     'Identifier': info.identifier,
     'Model': info.model,
     'TimeZone': info.timeZone,
-    'GeneratedDeviceId': info.generatedDeviceId,
-    'AppSetID': info.appSetID,
-    'IDFV': info.idfv,
   };
 }
 
@@ -53,16 +49,12 @@ class UserDeviceInfoService {
             screenRes.width,
           );
           existing.os = metaInfo!.os;
-          existing.fingerprint = metaInfo.fingerprint;
           existing.manufacturer = metaInfo.manufacturer;
           existing.osVersion = metaInfo.osVersion;
           existing.api = metaInfo.api.toString();
           existing.identifier = metaInfo.identifier;
           existing.model = metaInfo.model;
           existing.timeZone = device.timeZone;
-          existing.generatedDeviceId = device.generatedDeviceId;
-          existing.appSetID = device.appSetID;
-          existing.idfv = device.idfv;
           return existing;
         }
         // if it doesn't exist, then create it
@@ -72,16 +64,12 @@ class UserDeviceInfoService {
             "0",
             screenResolution: ScreenRes(screenRes!.height, screenRes.width),
             os: metaInfo!.os,
-            fingerprint: metaInfo.fingerprint,
             manufacturer: metaInfo.manufacturer,
             osVersion: metaInfo.osVersion,
             api: metaInfo.api.toString(),
             identifier: metaInfo.identifier,
             model: metaInfo.model,
             timeZone: device.timeZone,
-            generatedDeviceId: device.generatedDeviceId,
-            appSetID: device.appSetID,
-            idfv: device.idfv,
           );
         }
       },

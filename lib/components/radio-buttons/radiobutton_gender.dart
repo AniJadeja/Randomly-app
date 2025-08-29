@@ -5,7 +5,7 @@ import 'package:randomly/config/strings/buttons.dart';
 import 'package:randomly/themes/themes.text.dart';
 
 // An enum to represent the different gender options.
-enum Gender { male, female }
+enum Gender { male, female, other }
 
 /// A custom component for selecting a gender using SVG radio buttons.
 ///

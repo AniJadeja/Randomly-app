@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:randomly/components/buttons/button_link.dart';
 import 'package:randomly/components/buttons/button_outlined.dart';
 import 'package:randomly/components/buttons/button_primary.dart';
 import 'package:randomly/components/buttons/button_text.dart';
 import 'package:randomly/components/radio-buttons/radio_button_outlined.dart';
+import 'package:randomly/components/snackbar/native_notifier.dart';
 import 'package:randomly/config/config.dart';
 import 'package:randomly/config/paths.dart';
 import 'package:randomly/config/strings/buttons.dart';
 import 'package:randomly/config/strings/pages.texts.dart';
 import 'package:randomly/components/radio-buttons/radiobutton_gender.dart';
+import 'package:randomly/config/strings/routes.dart';
 
 class GenderPickerScreen extends StatefulWidget {
   const GenderPickerScreen({super.key});
@@ -18,13 +21,19 @@ class GenderPickerScreen extends StatefulWidget {
   State<GenderPickerScreen> createState() => _GenderPickerScreenState();
 }
 
+class GenderArgs {
+  final Gender gender;
+
+  GenderArgs(this.gender);
+}
+
 class _GenderPickerScreenState extends State<GenderPickerScreen> {
   // A state variable to store the selected gender from the GenderSelector.
   Gender? _selectedGender;
   bool _otherSelected = false;
 
-  final GlobalKey<GenderSelectorState> _genderSelectorKey = GlobalKey<GenderSelectorState>();
-
+  final GlobalKey<GenderSelectorState> _genderSelectorKey =
+      GlobalKey<GenderSelectorState>();
 
   // A function to handle the gender change from the GenderSelector.
   void _onGenderChanged(Gender gender) {
@@ -32,7 +41,6 @@ class _GenderPickerScreenState extends State<GenderPickerScreen> {
       _selectedGender = gender;
       _otherSelected = false; // reset visual state
     });
-    debugPrint('Selected gender from the parent: $_selectedGender');
   }
 
   // A new method to clear the gender selection.
@@ -42,7 +50,6 @@ class _GenderPickerScreenState extends State<GenderPickerScreen> {
       _selectedGender = null;
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +88,9 @@ class _GenderPickerScreenState extends State<GenderPickerScreen> {
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(
-                      vertical: 0, horizontal: 32),
+                    vertical: 0,
+                    horizontal: 32,
+                  ),
                   child: Text(
                     genderDisclosureString,
                     textAlign: TextAlign.center,
@@ -101,7 +110,8 @@ class _GenderPickerScreenState extends State<GenderPickerScreen> {
                     GenderSelector(
                       key: _genderSelectorKey,
                       onChanged: _onGenderChanged,
-                    ),                  ],
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -115,7 +125,9 @@ class _GenderPickerScreenState extends State<GenderPickerScreen> {
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(
-                      vertical: 0, horizontal: 24),
+                    vertical: 0,
+                    horizontal: 24,
+                  ),
                   child: Row(
                     spacing: 15, // This is not a valid property for Row
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -124,14 +136,32 @@ class _GenderPickerScreenState extends State<GenderPickerScreen> {
                         text: otherButtonString,
                         isSelected: _otherSelected,
                         onPressed: () {
+                          _clearGenderSelection();
                           setState(() {
                             _otherSelected = true;
+                            _selectedGender = Gender.other;
                           });
-                          _clearGenderSelection();
                         },
                       ),
                       Expanded(
-                          child: ButtonPrimary(text: nextButtonString, onPressed: () {})),
+                        child: ButtonPrimary(
+                          text: nextButtonString,
+                          onPressed: () {
+                            if (_selectedGender != null) {
+                              Navigator.pushNamed(
+                                context,
+                                ageScreenRoute,
+                                arguments: GenderArgs(_selectedGender!),
+                              );
+                            } else {
+                              NativeNotifier.show(
+                                context,
+                                "Please select your gender",
+                              );
+                            }
+                          },
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -139,7 +169,12 @@ class _GenderPickerScreenState extends State<GenderPickerScreen> {
                   margin: EdgeInsets.only(top: 24),
                   child: Stack(
                     children: [
-                      ButtonText(text: cancelButtonString, onPressed: () {}),
+                      ButtonText(
+                        text: cancelButtonString,
+                        onPressed: () {
+                          SystemNavigator.pop(animated: true);
+                        },
+                      ),
                       Positioned(
                         right: 24,
                         child: ButtonLink(

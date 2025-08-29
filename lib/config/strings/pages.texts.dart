@@ -20,5 +20,5 @@ final String genderSelectorInstruction = "Please choose your gender";
 
 // Age Picker Screen
 
-final String ageDisclosureString = "This platform is restricted to people of age 18 and above this disclosing your age is required";
+final String ageDisclosureString = "This platform is restricted to people of age 18 and above thus disclosing your age is required";
 final String actionWarningString = "This action is irreversible. You may not change your age later and your age will remain invisible to others.";

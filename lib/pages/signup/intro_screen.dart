@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:randomly/components/buttons/button_link.dart';
 import 'package:randomly/components/buttons/button_primary.dart';
@@ -87,7 +88,7 @@ class IntroScreen extends StatelessWidget {
                   text: iUnderstandButtonText,
                   width: 245,
                   onPressed: () {
-                    Navigator.pushNamed(context, startScreenRoute);
+                    Navigator.pushNamed(context, genderScreenRoute);
                   },
                 ),
                 Container(
@@ -97,7 +98,7 @@ class IntroScreen extends StatelessWidget {
                       ButtonText(
                         text: cancelButtonString,
                         onPressed: () {
-                          Navigator.pushNamed(context, startScreenRoute);
+                          SystemNavigator.pop(animated: true);
                         },
                       ),
                       Positioned(

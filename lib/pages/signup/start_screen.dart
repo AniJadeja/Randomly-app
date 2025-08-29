@@ -14,7 +14,6 @@ import 'package:randomly/pages/signup/intro_screen.dart';
 import 'package:randomly/services/db-interaction/user_device_info_service.dart';
 import 'package:randomly/themes/themes.text.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'dart:developer';
 
 class StartScreen extends StatefulWidget {
   const StartScreen({super.key});
