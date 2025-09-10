@@ -8,8 +8,9 @@ import 'package:randomly/realm-db/realm_config.dart';
 import 'package:randomly/themes/theme.dark.dart';
 import 'package:randomly/themes/theme.light.dart';
 import 'config/config.dart';
-import 'config/strings/routes.dart';
 import 'navigation/routes.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 
 // 1. Make the main function asynchronous
 Future<void> main() async {
@@ -29,8 +30,9 @@ Future<void> main() async {
       ScreenRes.schema,
     ],
   );
-  WidgetsFlutterBinding.ensureInitialized();
-  WidgetsBinding.instance.scheduleWarmUpFrame();
+
+  await dotenv.load(fileName: ".env");
+
   // 4. Now, run the app. It's safe to do this because Realm is ready.
   runApp(const Randomly());
 }

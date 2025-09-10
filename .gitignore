@@ -51,3 +51,6 @@ randomly-release-key.jks
 
 # release folder which contains release aab and apk
 release/
+
+# env file which holds the private information
+.env

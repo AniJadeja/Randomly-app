@@ -9,18 +9,18 @@ import '../../realm-db/realm_service.dart';
 /// A helper function to convert a Realm-managed DeviceInfo object to a Map.
 Map<String, dynamic> deviceInfoToJsonMap(DeviceInfo info) {
   return {
-    '_id': info.id,
-    'ScreenResolution': {
-      'Height': info.screenResolution?.height,
-      'Width': info.screenResolution?.width,
+    'id': info.id,
+    'screenResolution': {
+      'height': info.screenResolution?.height,
+      'width': info.screenResolution?.width,
     },
-    'OS': info.os,
-    'Manufacturer': info.manufacturer,
-    'OSVersion': info.osVersion,
-    'API': info.api,
-    'Identifier': info.identifier,
-    'Model': info.model,
-    'TimeZone': info.timeZone,
+    'os': info.os,
+    'manufacturer': info.manufacturer,
+    'osVersion': info.osVersion,
+    'api': info.api,
+    'identifier': info.identifier,
+    'model': info.model,
+    'timeZone': info.timeZone,
   };
 }
 

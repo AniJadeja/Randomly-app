@@ -13,15 +13,15 @@ class ScreenResolution {
 
   factory ScreenResolution.fromJson(Map<String, dynamic> json) {
     return ScreenResolution(
-      height: json['Height'] as double,
-      width: json['Width'] as double,
+      height: json['height'] as double,
+      width: json['width'] as double,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'Height': height,
-      'Width': width,
+      'height': height,
+      'width': width,
     };
   }
 }
@@ -48,27 +48,27 @@ class Info {
 
   factory Info.fromJson(Map<String, dynamic> json) {
     return Info(
-      screenResolution: json['ScreenResolution'] != null
-          ? ScreenResolution.fromJson(json['ScreenResolution'])
+      screenResolution: json['screenResolution'] != null
+          ? ScreenResolution.fromJson(json['screenResolution'])
           : null,
-      os: json['OS'] as String,
-      manufacturer: json['Manufacturer'] as String?,
-      osVersion: json['OSVersion'] as String?,
-      api: json['API'] as int?,
-      identifier: json['Identifier'] as String?,
-      model: json['Model'] as String?,
+      os: json['os'] as String,
+      manufacturer: json['manufacturer'] as String?,
+      osVersion: json['osVersion'] as String?,
+      api: json['api'] as int?,
+      identifier: json['identifier'] as String?,
+      model: json['model'] as String?,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'ScreenResolution': screenResolution?.toJson(),
-      'OS': os,
-      'Manufacturer': manufacturer,
-      'OSVersion': osVersion,
-      'API': api,
-      'Identifier': identifier,
-      'Model': model,
+      'screenResolution': screenResolution?.toJson(),
+      'os': os,
+      'manufacturer': manufacturer,
+      'osVersion': osVersion,
+      'api': api,
+      'identifier': identifier,
+      'model': model,
     };
   }
 }
@@ -89,10 +89,10 @@ class DeviceData {
   factory DeviceData.fromJson(Map<String, dynamic> json) {
     return DeviceData(
       // Updated key from 'DeviceInfo' to 'metaInfo'
-      metaInfo: json['DeviceInfo'] != null
-          ? Info.fromJson(json['DeviceInfo'])
+      metaInfo: json['deviceInfo'] != null
+          ? Info.fromJson(json['deviceInfo'])
           : null,
-      timeZone: json['TimeZone'] as String?,
+      timeZone: json['timeZone'] as String?,
 
     );
   }
@@ -100,8 +100,8 @@ class DeviceData {
   Map<String, dynamic> toJson() {
     return {
       // Updated key from 'DeviceInfo' to 'metaInfo'
-      'DeviceInfo': metaInfo?.toJson(),
-      'TimeZone': timeZone,
+      'deviceInfo': metaInfo?.toJson(),
+      'timeZone': timeZone,
 
     };
   }
@@ -131,38 +131,37 @@ class UserDeviceInfo {
         final fingerprint = androidInfo.model ?? '';
 
         deviceInfoMap = {
-          'ScreenResolution': {'Height': height, 'Width': width},
-          'OS': 'Android ${androidInfo.version.release}',
-          'Manufacturer': androidInfo.manufacturer ?? '',
-          'OSVersion': androidInfo.version.release ?? '',
-          'API': androidInfo.version.sdkInt,
-          'Identifier': androidInfo.version.incremental ?? '',
-          'Model': androidInfo.model ?? '',
+          'screenResolution': {'height': height, 'width': width},
+          'os': 'Android ${androidInfo.version.release}',
+          'manufacturer': androidInfo.manufacturer ?? '',
+          'osVersion': androidInfo.version.release ?? '',
+          'api': androidInfo.version.sdkInt,
+          'identifier': androidInfo.version.incremental ?? '',
+          'model': androidInfo.model ?? '',
         };
 
       } else if (Platform.isIOS) {
         final iosInfo = await _deviceInfoPlugin.iosInfo;
 
         deviceInfoMap = {
-          'ScreenResolution': {'Height': height, 'Width': width},
-          'OS': 'iOS ${iosInfo.systemVersion}',
-          'Manufacturer': 'Apple',
-          'OSVersion': iosInfo.systemVersion ?? '',
-          'API': null,
-          'Identifier': iosInfo.utsname.machine,
-          'Model': iosInfo.modelName ?? '',
+          'screenResolution': {'height': height, 'width': width},
+          'os': 'ios ${iosInfo.systemVersion}',
+          'manufacturer': 'Apple',
+          'osVersion': iosInfo.systemVersion ?? '',
+          'api': null,
+          'identifier': iosInfo.utsname.machine,
+          'model': iosInfo.modelName ?? '',
         };
 
       } else {
         deviceInfoMap = {
-          'ScreenResolution': {'Height': height, 'Width': width},
-          'OS': 'Unknown',
-          'Fingerprint': '',
-          'Manufacturer': '',
-          'OSVersion': '',
-          'API': '',
-          'Identifier': '',
-          'Model': '',
+          'screenResolution': {'height': height, 'width': width},
+          'os': 'Unknown',
+          'manufacturer': '',
+          'osVersion': '',
+          'api': '',
+          'identifier': '',
+          'model': '',
         };
       }
 
@@ -175,8 +174,8 @@ class UserDeviceInfo {
 
 
       final finalMap = {
-        "DeviceInfo": deviceInfoMap,
-        "TimeZone": timeZone,
+        "deviceInfo": deviceInfoMap,
+        "timeZone": timeZone,
       };
 
       return DeviceData.fromJson(finalMap);

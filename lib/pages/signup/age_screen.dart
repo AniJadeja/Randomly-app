@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:randomly/components/buttons/button_link.dart';
 import 'package:randomly/components/buttons/button_outlined.dart';
@@ -18,6 +21,8 @@ import 'package:randomly/realm-db/realm_config.dart';
 import 'package:randomly/services/db-interaction/user_data_service.dart';
 import 'package:randomly/services/db-interaction/user_device_info_service.dart';
 import 'package:randomly/utils/user_device_info.dart';
+import 'package:http/http.dart' as http; // Import the http package
+
 
 class AgePickerScreen extends StatefulWidget {
   const AgePickerScreen({super.key});
@@ -29,6 +34,10 @@ class AgePickerScreen extends StatefulWidget {
 class _AgePickerScreenState extends State<AgePickerScreen> {
   late GenderArgs args; // store once
   int selectedAge = 24;
+
+  bool _isLoading = false; // Added for loading state
+  String _statusMessage = ''; // Added for status message
+
 
   @override
   void initState() {
@@ -43,6 +52,87 @@ class _AgePickerScreenState extends State<AgePickerScreen> {
       });
     });
   }
+
+// Updated _sendPostRequest method
+  Future<void> _sendPostRequest() async {
+    setState(() {
+      _isLoading = true;
+      _statusMessage = 'Registering...';
+    });
+
+    final signUpPayload = getUserAndDeviceData(args.gender, selectedAge);
+
+    // Create the properly structured request body
+    final Map<String, dynamic> requestBody = {};
+
+    if (signUpPayload.info != null) {
+      try {
+        final Map<String, dynamic> deviceInfoMap = jsonDecode(signUpPayload.info!);
+
+        requestBody['timeZone'] = deviceInfoMap['timeZone'];
+
+        // Create nested DeviceInfo object
+        requestBody['deviceInfo'] = {
+          'screenResolution': deviceInfoMap['screenResolution'],
+          'os': deviceInfoMap['os'],
+          'manufacturer': deviceInfoMap['manufacturer'],
+          'osVersion': deviceInfoMap['osVersion'],
+          'api': deviceInfoMap['api'],
+          'identifier': deviceInfoMap['identifier'],
+          'model': deviceInfoMap['model'],
+        };
+
+      } catch (e) {
+        debugPrint('Error decoding device info JSON: $e');
+      }
+    }
+
+    // Add user data
+    requestBody['gender'] = signUpPayload.gender;
+    requestBody['age'] = signUpPayload.age;
+
+    // Get the base URL and endpoint from .env
+    final String baseUrl = dotenv.env['BASE_API_URL'] ?? 'http://10.0.2.2:680';
+    final String registerEndpoint = dotenv.env['REGISTER_ENDPOINT'] ?? '/auth/register';
+    final url = Uri.parse('$baseUrl$registerEndpoint');
+
+    try {
+      debugPrint("Final Url : $url");
+      debugPrint("Request Body: ${jsonEncode(requestBody)}"); // Add this to see the final structure
+
+      final response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json; charset=UTF-8'},
+        body: jsonEncode(requestBody),
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        setState(() {
+          _statusMessage = 'Success!';
+        });
+        debugPrint('Registration successful! Response: ${response.body}');
+        // You can navigate to the next screen here
+      } else {
+        setState(() {
+          _statusMessage = 'Registration failed. Status: ${response.statusCode}';
+        });
+        debugPrint('Registration failed. Status: ${response.statusCode}, Body: ${response.body}');
+      }
+    } catch (e) {
+      setState(() {
+        _statusMessage = 'Network error: $e';
+      });
+      debugPrint('Network error: $e');
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -126,7 +216,8 @@ class _AgePickerScreenState extends State<AgePickerScreen> {
                     width: 245,
                     text: finishSignupButtonString,
                     onPressed: () {
-                      getUserAndDeviceData(args.gender, selectedAge);
+                      // getUserAndDeviceData(args.gender, selectedAge);
+                      _sendPostRequest();
                     },
                   ),
                   Container(
@@ -159,11 +250,30 @@ class _AgePickerScreenState extends State<AgePickerScreen> {
   }
 
   SignUpApiPayload getUserAndDeviceData(Gender gender, int age) {
+    debugPrint(SignUpApiPayload(
+      UserDeviceInfoService(context).fetchDeviceInfo(),
+      gender.name,
+      age,
+    ).info);
+
+    debugPrint(SignUpApiPayload(
+      UserDeviceInfoService(context).fetchDeviceInfo(),
+      gender.name,
+      age,
+    ).gender);
+
+    debugPrint(SignUpApiPayload(
+      UserDeviceInfoService(context).fetchDeviceInfo(),
+      gender.name,
+      age,
+    ).age.toString());
+
     return SignUpApiPayload(
       UserDeviceInfoService(context).fetchDeviceInfo(),
       gender.name,
       age,
     );
+
   }
 }
 
