@@ -60,7 +60,7 @@ class IntroScreen extends StatelessWidget {
                   width: double.infinity,
                   mapSvgPath,
                   colorFilter: ColorFilter.mode(
-                    primaryAccent.withAlpha(80),
+                    primaryWhite.withAlpha(10),
                     BlendMode.srcIn,
                   ),
                 ),

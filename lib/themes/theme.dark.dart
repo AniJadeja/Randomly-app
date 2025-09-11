@@ -10,6 +10,12 @@ final ThemeData darkTheme = ThemeData(
     // You can also override the dark theme surface
     // surface: primaryBlack,
     onSurface: primaryWhite,
+    surface: primaryBlackSurface,
+    surfaceDim: primaryBlackShadeOne,
+    primaryContainer: primaryAccentShadeOne,
+    onSurfaceVariant: primaryBlackShadeThree,
+
+    secondary: secondaryOnDark
   ),
   textTheme: TextTheme(
     displayLarge: AppTextTheme.textHeadingDark,

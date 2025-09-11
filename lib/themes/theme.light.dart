@@ -10,6 +10,9 @@ final ThemeData lightTheme = ThemeData(
     // Override the calculated surface color
     // surface: primaryWhite,
     // onSurface: primaryBlack,
+    surfaceDim: primaryAccentShadeOne,
+    onSurfaceVariant: secondaryOnDark,
+    secondary: secondaryOnLight
   ),
   textTheme: TextTheme(
     displayLarge: AppTextTheme.textHeadingLight,
