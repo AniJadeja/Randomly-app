@@ -12,6 +12,7 @@ final ThemeData lightTheme = ThemeData(
     // onSurface: primaryBlack,
     surfaceDim: primaryAccentShadeOne,
     onSurfaceVariant: secondaryOnDark,
+    inversePrimary: primaryBlack,
     secondary: secondaryOnLight
   ),
   textTheme: TextTheme(

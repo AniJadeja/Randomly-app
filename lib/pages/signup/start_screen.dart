@@ -1,22 +1,21 @@
 // start_screen.dart
 
+import 'package:file_selector/file_selector.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:randomly/components/buttons/button_primary.dart';
 import 'package:randomly/components/buttons/button_text.dart';
-import 'package:randomly/components/buttons/keyfile_button.dart';
 import 'package:randomly/config/config.dart';
 import 'package:randomly/config/paths.dart';
-import 'package:randomly/config/strings/pages.texts.dart';
 import 'package:randomly/config/strings/buttons.dart';
+import 'package:randomly/config/strings/pages.texts.dart';
 import 'package:randomly/config/strings/routes.dart';
 import 'package:randomly/navigation/preload_manager.dart';
 import 'package:randomly/pages/signup/intro_screen.dart';
 import 'package:randomly/services/db-interaction/user_device_info_service.dart';
 import 'package:randomly/themes/themes.text.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:file_selector/file_selector.dart';
 
 class StartScreen extends StatefulWidget {
   const StartScreen({super.key});
@@ -82,163 +81,73 @@ class _StartScreenState extends State<StartScreen> {
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
-      body: SafeArea(
-        child: Stack(
-          children: [
-            Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SvgPicture.asset(logoSvgPath, width: 70),
-                  const SizedBox(height: 16),
-                  Text(appName, style: textTheme.displayLarge),
-                ],
-              ),
+      body: Stack(
+        children: [
+          Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SvgPicture.asset(logoSvgPath, width: 70),
+                const SizedBox(height: 16),
+                Text(appName, style: textTheme.displayLarge),
+              ],
             ),
-            Positioned(
-              bottom: 24,
-              left: 0,
-              right: 0,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  ButtonPrimary(
-                    text: startScreenPrimaryButtonString,
-                    width: 245,
-                    onPressed: () {
-                      Navigator.pushNamed(context, introScreenRoute);
-                    },
-                  ),
-                  const SizedBox(height: 16),
-                  ButtonText(
-                    text: "Restore Account",
-                    onPressed: () => _showPickerBottomSheet(context),
-                  ),
-                  const SizedBox(height: 8),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(8, 16, 8, 8),
-                    child: RichText(
-                      textAlign: TextAlign.center,
-                      text: TextSpan(
-                        style: textTheme.bodySmall,
-                        children: [
-                          TextSpan(text: termsString1),
-                          TextSpan(
-                            text: termsString2,
-                            style: textTheme.bodySmall,
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () =>
-                                  openUrl("https://example.com/terms"),
-                          ),
-                          TextSpan(text: termsString3),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Positioned(
-              bottom: 80,
-              right: 32,
-              child: RotatedBox(
-                quarterTurns: 3,
-                child: Text(verticalText, style: AppTextTheme.verticalText),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  void _showPickerBottomSheet(BuildContext context) {
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
-
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: Colors.transparent,
-      isScrollControlled: true,
-      builder: (BuildContext bc) {
-        return StatefulBuilder(
-          builder: (context, setModalState) {
-            return Container(
-              decoration: BoxDecoration(
-                color: colorScheme.surface,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(20.0),
-                  topRight: Radius.circular(20.0),
+          ),
+          Positioned(
+            bottom: 24,
+            left: 0,
+            right: 0,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ButtonPrimary(
+                  text: startScreenPrimaryButtonString,
+                  width: 245,
+                  onPressed: () {
+                    Navigator.pushNamed(context, introScreenRoute);
+                  },
                 ),
-              ),
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Text(
-                    "Choose Keyfile",
-                    style: theme.textTheme.bodyLarge?.copyWith(fontSize: 20),
+                const SizedBox(height: 16),
+                ButtonText(
+                  text: "Restore Account",
+                  onPressed: () {
+                    Navigator.pushNamed(context, restoreScreenRoute);
+                  },
+                ),
+                const SizedBox(height: 8),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(8, 16, 8, 8),
+                  child: RichText(
                     textAlign: TextAlign.center,
-                  ),
-                  Container(
-                    height: 2,
-                    width: 40,
-                    margin: const EdgeInsets.symmetric(vertical: 10),
-                    decoration: BoxDecoration(
-                      color: colorScheme.primaryContainer,
-                      borderRadius: BorderRadius.circular(2.5),
+                    text: TextSpan(
+                      style: textTheme.bodySmall,
+                      children: [
+                        TextSpan(text: termsString1),
+                        TextSpan(
+                          text: termsString2,
+                          style: textTheme.bodySmall,
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () =>
+                                openUrl("https://example.com/terms"),
+                        ),
+                        TextSpan(text: termsString3),
+                      ],
                     ),
                   ),
-                  const SizedBox(height: 12),
-
-                  KeyfileButton(
-                    onPressed: () async {
-                      final XTypeGroup typeGroup = XTypeGroup(
-                        label: 'text',
-                        extensions: <String>[],
-                      );
-                      final XFile? file = await openFile(
-                        acceptedTypeGroups: <XTypeGroup>[typeGroup],
-                      );
-
-                      if (file != null) {
-                        setModalState(() {
-                          _selectedFile = file.name;
-                        });
-                        debugPrint("Selected File : ${file.path}");
-                      }
-                    },
-                    fileName: _selectedFile,
-                  ),
-                  const SizedBox(height: 5),
-                  Text(
-                    "Not sure where to get keyfile from? click here",
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      letterSpacing: 0,
-                      color: theme.colorScheme.onSurfaceVariant,
-                    ),
-                  ),
-                  const SizedBox(height: 35),
-                  ButtonPrimary(
-                    text: "Next",
-                    onPressed: () {},
-                    cornerRadius: 5,
-                  ),
-                  const SizedBox(height: 20),
-                  TextButton(
-                    onPressed: () => Navigator.pop(bc),
-                    child: Text(
-                      'Cancel',
-                      style: TextStyle(color: Colors.red[300]),
-                    ),
-                  ),
-                ],
-              ),
-            );
-          },
-        );
-      },
+                ),
+              ],
+            ),
+          ),
+          Positioned(
+            bottom: 80,
+            right: 32,
+            child: RotatedBox(
+              quarterTurns: 3,
+              child: Text(verticalText, style: AppTextTheme.verticalText),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

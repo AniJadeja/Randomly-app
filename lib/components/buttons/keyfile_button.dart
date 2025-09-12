@@ -100,7 +100,7 @@ class KeyfileButton extends StatelessWidget {
       child: ElevatedButton.icon(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: primaryAccentShadeTwo,
+          backgroundColor: theme.colorScheme.surfaceDim,
           elevation: 0,
           shadowColor: Colors.transparent,
           shape: RoundedRectangleBorder(

@@ -12,8 +12,11 @@ final ThemeData darkTheme = ThemeData(
     onSurface: primaryWhite,
     surface: primaryBlackSurface,
     surfaceDim: primaryBlackShadeOne,
+    surfaceContainerLow: appBarDark,
+    surfaceContainer: containerDark,
+    inversePrimary: primaryWhite,
     primaryContainer: primaryAccentShadeOne,
-    onSurfaceVariant: primaryBlackShadeThree,
+    // onSurfaceVariant: primaryBlackShadeTree,
 
     secondary: secondaryOnDark
   ),
