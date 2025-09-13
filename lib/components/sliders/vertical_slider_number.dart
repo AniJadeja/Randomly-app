@@ -120,7 +120,7 @@ class _NumberPickerState extends State<NumberPicker> {
                       style: TextStyle(
                         fontSize: fontSize,
                         fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                        color: isSelected ? theme.colorScheme.surfaceDim : theme.colorScheme.onSurface,
+                        color: isSelected ? theme.colorScheme.surfaceContainer : theme.colorScheme.onSurface,
                       ),
                     ),
                   );

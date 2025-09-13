@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:randomly/l10n/generated/app_localizations.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../config/strings/pages.texts.dart';
@@ -107,6 +108,7 @@ class _TileButtonState extends State<TileButton> {
     final bool isPrimaryLike = widget.styleType == ButtonStyleType.primary;
     final bool isSecondary = widget.styleType == ButtonStyleType.secondary;
     final bool isSecondaryAndSelected = isSecondary && _isSelected;
+    final lang = AppLocalizations.of(context)!;
 
     final Color unselectedBackgroundColor = Color(0xFF1E1E1E);
     final Color secondarySelectedBackgroundColor = Color(0xFF101010);
@@ -249,9 +251,9 @@ class _TileButtonState extends State<TileButton> {
                       text: TextSpan(
                         style: baseRichTextStyle,
                         children: [
-                          TextSpan(text: "To know more, \n"),
+                          TextSpan(text: "${lang.knowMoreString}\n"),
                           TextSpan(
-                            text: "Click Here",
+                            text: lang.clickHereString,
                             style: textTheme.bodySmall?.copyWith(
                               color: Color(0xFFBE823D),
                               decoration: TextDecoration.underline,
@@ -297,7 +299,7 @@ class _TileButtonState extends State<TileButton> {
                       Icon(Icons.close, color: Colors.white, size: 14.0),
                       SizedBox(width: 4.0),
                       Text(
-                        'Clear',
+                        lang.clearButtonString,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 10.0,

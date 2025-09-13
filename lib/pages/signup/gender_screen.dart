@@ -13,6 +13,7 @@ import 'package:randomly/config/strings/buttons.dart';
 import 'package:randomly/config/strings/pages.texts.dart';
 import 'package:randomly/components/radio-buttons/radiobutton_gender.dart';
 import 'package:randomly/config/strings/routes.dart';
+import 'package:randomly/l10n/generated/app_localizations.dart';
 
 class GenderPickerScreen extends StatefulWidget {
   const GenderPickerScreen({super.key});
@@ -55,6 +56,8 @@ class _GenderPickerScreenState extends State<GenderPickerScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
+    final lang = AppLocalizations.of(context)!;
+
 
     return Scaffold(
       body: Column(
@@ -92,7 +95,7 @@ class _GenderPickerScreenState extends State<GenderPickerScreen> {
                     horizontal: 32,
                   ),
                   child: Text(
-                    genderDisclosureString,
+                    lang.genderDisclosureString,
                     textAlign: TextAlign.center,
                     style: textTheme.bodyLarge,
                   ),
@@ -101,7 +104,7 @@ class _GenderPickerScreenState extends State<GenderPickerScreen> {
                   // spacing: 30, // This is not a valid property for Column
                   children: [
                     Text(
-                      genderSelectorInstruction,
+                      lang.genderSelectorInstruction,
                       textAlign: TextAlign.center,
                       style: textTheme.bodyLarge,
                     ),
@@ -133,7 +136,7 @@ class _GenderPickerScreenState extends State<GenderPickerScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       ButtonOutlinedRadio(
-                        text: otherButtonString,
+                        text: lang.otherButtonString,
                         isSelected: _otherSelected,
                         onPressed: () {
                           _clearGenderSelection();
@@ -145,7 +148,7 @@ class _GenderPickerScreenState extends State<GenderPickerScreen> {
                       ),
                       Expanded(
                         child: ButtonPrimary(
-                          text: nextButtonString,
+                          text: lang.nextButtonString,
                           onPressed: () {
                             if (_selectedGender != null) {
                               Navigator.pushNamed(
@@ -156,7 +159,7 @@ class _GenderPickerScreenState extends State<GenderPickerScreen> {
                             } else {
                               NativeNotifier.show(
                                 context,
-                                "Please select your gender",
+                                lang.genderSelectorInstruction,
                               );
                             }
                           },
@@ -170,7 +173,7 @@ class _GenderPickerScreenState extends State<GenderPickerScreen> {
                   child: Stack(
                     children: [
                       ButtonText(
-                        text: cancelButtonString,
+                        text: lang.cancelSignupButtonString,
                         onPressed: () {
                           SystemNavigator.pop(animated: true);
                         },
@@ -178,7 +181,7 @@ class _GenderPickerScreenState extends State<GenderPickerScreen> {
                       Positioned(
                         right: 24,
                         child: ButtonLink(
-                          text: policyButtonString,
+                          text: lang.policyButtonString,
                           onPressed: () {},
                         ),
                       ),

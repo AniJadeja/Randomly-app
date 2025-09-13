@@ -1,5 +1,7 @@
 // start_screen.dart
 
+import 'dart:math';
+
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +18,7 @@ import 'package:randomly/pages/signup/intro_screen.dart';
 import 'package:randomly/services/db-interaction/user_device_info_service.dart';
 import 'package:randomly/themes/themes.text.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:randomly/l10n/generated/app_localizations.dart';
 
 class StartScreen extends StatefulWidget {
   const StartScreen({super.key});
@@ -26,27 +29,6 @@ class StartScreen extends StatefulWidget {
 
 class _StartScreenState extends State<StartScreen> {
   bool _initialized = false;
-
-  String? _selectedFile;
-
-  Future<void> _pickFile() async {
-    final XTypeGroup typeGroup = XTypeGroup(
-      label: 'text',
-      extensions: <String>[],
-    );
-    final XFile? file = await openFile(
-      acceptedTypeGroups: <XTypeGroup>[typeGroup],
-    );
-
-    if (file != null) {
-      setState(() {
-        // Use only the filename, not the whole path
-        _selectedFile = file.name;
-      });
-
-      debugPrint("Selected File : ${file.path}");
-    }
-  }
 
   @override
   void didChangeDependencies() {
@@ -69,6 +51,7 @@ class _StartScreenState extends State<StartScreen> {
   Widget _startScreenWidget() {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
+    final lang = AppLocalizations.of(context)!;
 
     Future<void> openUrl(String url) async {
       final Uri uri = Uri.parse(url);
@@ -101,7 +84,7 @@ class _StartScreenState extends State<StartScreen> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 ButtonPrimary(
-                  text: startScreenPrimaryButtonString,
+                  text: lang.letsStartString,
                   width: 245,
                   onPressed: () {
                     Navigator.pushNamed(context, introScreenRoute);
@@ -109,7 +92,7 @@ class _StartScreenState extends State<StartScreen> {
                 ),
                 const SizedBox(height: 16),
                 ButtonText(
-                  text: "Restore Account",
+                  text: lang.restoreAccountString,
                   onPressed: () {
                     Navigator.pushNamed(context, restoreScreenRoute);
                   },
@@ -122,15 +105,17 @@ class _StartScreenState extends State<StartScreen> {
                     text: TextSpan(
                       style: textTheme.bodySmall,
                       children: [
-                        TextSpan(text: termsString1),
+                        TextSpan(text: lang.termsString1),
                         TextSpan(
-                          text: termsString2,
-                          style: textTheme.bodySmall,
+                          text: lang.termsString2,
+                          style: textTheme.bodySmall?.copyWith(
+                            decoration: TextDecoration.underline,
+                          ),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () =>
                                 openUrl("https://example.com/terms"),
                         ),
-                        TextSpan(text: termsString3),
+                        // TextSpan(text: termsString3),
                       ],
                     ),
                   ),
@@ -143,7 +128,7 @@ class _StartScreenState extends State<StartScreen> {
             right: 32,
             child: RotatedBox(
               quarterTurns: 3,
-              child: Text(verticalText, style: AppTextTheme.verticalText),
+              child: Text(lang.verticalGreetText, style: AppTextTheme.verticalText),
             ),
           ),
         ],

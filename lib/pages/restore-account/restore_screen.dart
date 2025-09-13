@@ -3,15 +3,20 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:randomly/components/buttons/custom_button.dart';
 import 'package:randomly/config/config.dart';
 import 'package:randomly/config/paths.dart';
+import 'package:randomly/l10n/generated/app_localizations.dart';
 
 class RestoreScreen extends StatelessWidget {
   const RestoreScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
+    final lang = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.surfaceContainerLow,
+        backgroundColor: theme.colorScheme.surfaceContainerLow,
         toolbarHeight: 80,
         leading: Padding(
           padding: const EdgeInsets.only(left: 12),
@@ -29,7 +34,7 @@ class RestoreScreen extends StatelessWidget {
             Text(
               appName,
               style: TextStyle(
-                color: Colors.white,
+                color: theme.colorScheme.onSurface,
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
               ),
@@ -43,7 +48,7 @@ class RestoreScreen extends StatelessWidget {
           children: [
             SizedBox(height: 20),
             Text(
-              "To restore your account, provide your keyfile and optionally chat backup file",
+              lang.restoreAccountInstructionString,
               style: Theme.of(context).textTheme.bodyMedium,
             ),
             Container(
@@ -52,17 +57,21 @@ class RestoreScreen extends StatelessWidget {
               child: Row(
                 children: [
                   // This widget will fill half the available width
-                  Expanded(child: TileButton(
-                    styleType: ButtonStyleType.primary,
-                    fileType: FileType.any,
-                    defaultTitle: 'Your Key file',
-                    defaultDescription: 'Keyfile provides identity of your account',
-                    defaultIcon: Icons.key, // Or any other relevant icon
-                    onFilePicked: (file, path) {
-                      print('File picked: ${file.path}');
-                      // Handle the picked file and path
-                    },
-                  )),
+                  Expanded(
+                    child: TileButton(
+                      styleType: ButtonStyleType.primary,
+                      fileType: FileType.any,
+                      defaultTitle: lang.keyfileButtonString,
+                      defaultDescription:
+                          lang.keyfileDescriptionString,
+                      defaultIcon: Icons.key,
+                      // Or any other relevant icon
+                      onFilePicked: (file, path) {
+                        print('File picked: ${file.path}');
+                        // Handle the picked file and path
+                      },
+                    ),
+                  ),
 
                   // This creates a fixed-size gap
                   const SizedBox(width: 24),
@@ -72,14 +81,16 @@ class RestoreScreen extends StatelessWidget {
                     child: TileButton(
                       styleType: ButtonStyleType.secondary,
                       fileType: FileType.any,
-                      defaultTitle: 'Your Chat file',
-                      defaultDescription: 'Chat Backup provides all the previous chats of your account.',
-                      defaultIcon: Icons.article_rounded, // Or any other relevant icon
+                      defaultTitle: lang.chatBackupButtonString,
+                      defaultDescription:
+                          lang.chatBackupDescriptionString,
+                      defaultIcon: Icons.article_rounded,
+                      // Or any other relevant icon
                       onFilePicked: (file, path) {
                         print('File picked: ${file.path}');
                         // Handle the picked file and path
                       },
-                    )
+                    ),
                   ),
                 ],
               ),

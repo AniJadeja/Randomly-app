@@ -9,6 +9,7 @@ import 'package:randomly/config/paths.dart';
 import 'package:randomly/config/strings/buttons.dart';
 import 'package:randomly/config/strings/pages.texts.dart';
 import 'package:randomly/config/strings/routes.dart';
+import 'package:randomly/l10n/generated/app_localizations.dart';
 
 class IntroScreen extends StatelessWidget {
   const IntroScreen({super.key});
@@ -17,6 +18,7 @@ class IntroScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
+    final lang = AppLocalizations.of(context)!;
 
     return Scaffold(
       body: Column(
@@ -43,7 +45,7 @@ class IntroScreen extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 32),
               child: Text(
-                randomlyIntroString,
+                lang.randomlyIntroString,
                 textAlign: TextAlign.center,
                 style: textTheme.bodyLarge,
               ),
@@ -69,7 +71,7 @@ class IntroScreen extends StatelessWidget {
                   right: 32,
                   left: 32,
                   child: Text(
-                    disclaimer,
+                    lang.disclaimer,
                     textAlign: TextAlign.center,
                     style: textTheme.bodyLarge,
                   ),
@@ -85,7 +87,7 @@ class IntroScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ButtonPrimary(
-                  text: iUnderstandButtonText,
+                  text: lang.iUnderstandButtonText,
                   width: 245,
                   onPressed: () {
                     Navigator.pushNamed(context, genderScreenRoute);
@@ -96,7 +98,7 @@ class IntroScreen extends StatelessWidget {
                   child: Stack(
                     children: [
                       ButtonText(
-                        text: cancelButtonString,
+                        text: lang.cancelSignupButtonString,
                         onPressed: () {
                           SystemNavigator.pop(animated: true);
                         },
@@ -104,7 +106,7 @@ class IntroScreen extends StatelessWidget {
                       Positioned(
                         right: 24,
                         child: ButtonLink(
-                          text: policyButtonString,
+                          text: lang.policyButtonString,
                           onPressed: () {},
                         ),
                       ),

@@ -54,3 +54,5 @@ release/
 
 # env file which holds the private information
 .env
+
+translator_key

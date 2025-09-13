@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:randomly/l10n/generated/app_localizations.dart';
 import 'package:randomly/pages/signup/start_screen.dart';
 import 'package:randomly/realm-db/models/deviceinfo/device_info.dart';
 import 'package:randomly/realm-db/models/session/session_current.dart';
@@ -7,10 +9,9 @@ import 'package:randomly/realm-db/models/userdata/userdata.dart';
 import 'package:randomly/realm-db/realm_config.dart';
 import 'package:randomly/themes/theme.dark.dart';
 import 'package:randomly/themes/theme.light.dart';
+
 import 'config/config.dart';
 import 'navigation/routes.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-
 
 // 1. Make the main function asynchronous
 Future<void> main() async {
@@ -44,6 +45,10 @@ class Randomly extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      locale: Locale('es', ''),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+
       title: appName,
       debugShowCheckedModeBanner: false,
 

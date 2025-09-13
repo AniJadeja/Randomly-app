@@ -14,6 +14,7 @@ import 'package:randomly/config/config.dart';
 import 'package:randomly/config/paths.dart';
 import 'package:randomly/config/strings/buttons.dart';
 import 'package:randomly/config/strings/pages.texts.dart';
+import 'package:randomly/l10n/generated/app_localizations.dart';
 import 'package:randomly/pages/signup/gender_screen.dart';
 import 'package:randomly/realm-db/models/deviceinfo/device_info.dart';
 import 'package:randomly/realm-db/models/userdata/userdata.dart';
@@ -138,6 +139,8 @@ class _AgePickerScreenState extends State<AgePickerScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
+    final lang = AppLocalizations.of(context)!;
+
 
     void onSelectedAgeChanged(int number) {
       setState(() {
@@ -183,7 +186,7 @@ class _AgePickerScreenState extends State<AgePickerScreen> {
                     horizontal: 32,
                   ),
                   child: Text(
-                    ageDisclosureString,
+                    lang.ageDisclosureString,
                     textAlign: TextAlign.center,
                     style: textTheme.bodyLarge,
                   ),
@@ -195,7 +198,7 @@ class _AgePickerScreenState extends State<AgePickerScreen> {
                     horizontal: 32,
                   ),
                   child: Text(
-                    actionWarningString,
+                    lang.actionWarningString,
                     textAlign: TextAlign.center,
                     style: textTheme.bodyLarge,
                   ),
@@ -214,7 +217,7 @@ class _AgePickerScreenState extends State<AgePickerScreen> {
                 children: [
                   ButtonPrimary(
                     width: 245,
-                    text: finishSignupButtonString,
+                    text: lang.finishSignupButtonString,
                     onPressed: () {
                       // getUserAndDeviceData(args.gender, selectedAge);
                       _sendPostRequest();
@@ -225,7 +228,7 @@ class _AgePickerScreenState extends State<AgePickerScreen> {
                     child: Stack(
                       children: [
                         ButtonText(
-                          text: cancelButtonString,
+                          text: lang.cancelSignupButtonString,
                           onPressed: () {
                             SystemNavigator.pop(animated: true);
                           },
@@ -233,7 +236,7 @@ class _AgePickerScreenState extends State<AgePickerScreen> {
                         Positioned(
                           right: 24,
                           child: ButtonLink(
-                            text: policyButtonString,
+                            text: lang.policyButtonString,
                             onPressed: () {},
                           ),
                         ),

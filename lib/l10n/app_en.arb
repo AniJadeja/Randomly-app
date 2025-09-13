@@ -1,0 +1,36 @@
+{
+  "@@locale": "en",
+  "helloString": "Hello",
+  "letsStartString" : "Let's Start",
+  "restoreAccountString" : "Restore Account",
+
+  "randomlyIntroString" : "Randomly connects people from all around the globe anonymously and securely",
+  "iUnderstandButtonText" : "I Understand",
+  "disclaimer" : "Although people get connected anonymously, to maintain the integrity of the chat, gender and age is required.",
+
+  "restoreAccountInstructionString" : "To restore your account, provide your keyfile and optionally chat backup file.",
+  "keyfileButtonString" : "Your Key file",
+  "keyfileDescriptionString" : "Keyfile provides identity of your account.",
+  "chatBackupButtonString" : "Your Chat file",
+  "chatBackupDescriptionString" : "Chat Backup provides all the previous chats of your account.",
+  "knowMoreString" : "To know more ",
+  "clickHereString" : "Click Here",
+  "clearButtonString" : "Clear",
+
+  "genderDisclosureString" : "Disclosing your gender helps build trust among community and maintains integrity of subsequent chats.",
+  "genderSelectorInstruction" : "Please select your gender",
+  "otherButtonString" : "Other",
+  "nextButtonString" : "Next",
+  "genderMaleButtonString" : "I am Male",
+  "genderFemaleButtonString" : "I am Female",
+
+  "ageDisclosureString" : "This platform is restricted to people of age 18 and above. Thus disclosure of age is required.",
+  "actionWarningString" : "This action is irreversible. You may not change your age later and your age will remain invisible to others.",
+  "finishSignupButtonString" : "Finish Signup",
+
+  "cancelSignupButtonString" : "Cancel Signup",
+  "policyButtonString" : "Policy",
+  "verticalGreetText" : "Meet People from everywhere-->",
+  "termsString1" : "By using the app you agree to our, ",
+  "termsString2" : "Terms of Service."
+}

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:randomly/config/paths.dart';
 import 'package:randomly/config/strings/buttons.dart';
+import 'package:randomly/l10n/generated/app_localizations.dart';
 import 'package:randomly/themes/themes.text.dart';
 
 // An enum to represent the different gender options.
@@ -48,6 +49,8 @@ class GenderSelectorState extends State<GenderSelector> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
+    final lang = AppLocalizations.of(context)!;
+
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -69,7 +72,7 @@ class GenderSelectorState extends State<GenderSelector> {
                   horizontal: 0,
                 ),
                 child: Text(
-                  genderMaleButtonString,
+                  lang.genderMaleButtonString,
                   style: textTheme.bodyMedium,
                 ),
               ),
@@ -94,7 +97,7 @@ class GenderSelectorState extends State<GenderSelector> {
                   horizontal: 0,
                 ),
                 child: Text(
-                  genderFemaleButtonString,
+                  lang.genderFemaleButtonString,
                   style: textTheme.bodyMedium,
                 ),
               ),
