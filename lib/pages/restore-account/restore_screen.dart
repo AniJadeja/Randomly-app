@@ -41,36 +41,45 @@ class RestoreScreen extends StatelessWidget {
         minimum: EdgeInsets.all(20),
         child: Column(
           children: [
+            SizedBox(height: 20),
             Text(
               "To restore your account, provide your keyfile and optionally chat backup file",
               style: Theme.of(context).textTheme.bodyMedium,
             ),
             Container(
               // This Container automatically fills the available width
-              margin: EdgeInsets.only(top: 20),
+              margin: EdgeInsets.only(top: 40),
               child: Row(
                 children: [
                   // This widget will fill half the available width
-                  Expanded(child: CustomGlowButton()),
+                  Expanded(child: TileButton(
+                    styleType: ButtonStyleType.primary,
+                    fileType: FileType.any,
+                    defaultTitle: 'Your Key file',
+                    defaultDescription: 'Keyfile provides identity of your account',
+                    defaultIcon: Icons.key, // Or any other relevant icon
+                    onFilePicked: (file, path) {
+                      print('File picked: ${file.path}');
+                      // Handle the picked file and path
+                    },
+                  )),
 
                   // This creates a fixed-size gap
-                  const SizedBox(width: 16),
+                  const SizedBox(width: 24),
 
                   // This widget will also fill half the available width
                   Expanded(
-                    child: Container(
-                      height: 180,
-                      decoration: BoxDecoration(
-                        color: Theme.of(
-                          context,
-                        ).colorScheme.surfaceContainer, // Set color here
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20),
-                        ),
-                      ),
-                      child: const Center(child: Text('Widget 2')),
-                    ),
+                    child: TileButton(
+                      styleType: ButtonStyleType.secondary,
+                      fileType: FileType.any,
+                      defaultTitle: 'Your Chat file',
+                      defaultDescription: 'Chat Backup provides all the previous chats of your account.',
+                      defaultIcon: Icons.article_rounded, // Or any other relevant icon
+                      onFilePicked: (file, path) {
+                        print('File picked: ${file.path}');
+                        // Handle the picked file and path
+                      },
+                    )
                   ),
                 ],
               ),

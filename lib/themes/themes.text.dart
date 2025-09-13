@@ -9,6 +9,7 @@ class AppTextTheme {
 
   static const double _heading1Size = 32;
   static const double _heading2Size = 24;
+  static const double _heading3Size = 18;
 
   static const double bodyLargeTextSize = 16;
   static const double _bodyMediumTextSize = 14;
@@ -17,7 +18,7 @@ class AppTextTheme {
   static final TextStyle _baseTextStyle = TextStyle(
     fontFamily: _fontFamily,
     fontWeight: FontWeight.normal,
-    letterSpacing: 1.0,
+    letterSpacing: 0.3,
   );
 
   // --- Theme-agnostic Text Styles ---
@@ -52,6 +53,7 @@ class AppTextTheme {
     fontWeight: FontWeight.bold,
     color: primaryWhite,
     letterSpacing: 2.0,
+    fontFamily: _fontFamily,
   );
 
   static final TextStyle textButtonOutlinedDark = _baseDark.copyWith(
@@ -60,6 +62,11 @@ class AppTextTheme {
 
   static final TextStyle textHeading2Dark = textHeadingDark.copyWith(
     fontSize: _heading2Size,
+  );
+
+  static final TextStyle textHeading3Dark = textHeadingDark.copyWith(
+    fontSize: _heading3Size,
+    letterSpacing: 0
   );
 
   static final TextStyle textPrimaryDark = _baseDark.copyWith(
@@ -80,6 +87,7 @@ class AppTextTheme {
   // --- Light Theme Text Styles ---
 
   static final TextStyle textHeadingLight = _baseLight.copyWith(
+    fontFamily: _fontFamily,
     fontSize: _heading1Size,
     fontWeight: FontWeight.bold,
     color: primaryBlack,
@@ -92,6 +100,11 @@ class AppTextTheme {
 
   static final TextStyle textHeading2Light = textHeadingLight.copyWith(
     fontSize: _heading2Size,
+  );
+
+  static final TextStyle textHeading3Light = textHeadingLight.copyWith(
+    fontSize: _heading3Size,
+    letterSpacing: 0
   );
 
   static final TextStyle textPrimaryLight = _baseLight.copyWith(

@@ -23,6 +23,7 @@ final ThemeData darkTheme = ThemeData(
   textTheme: TextTheme(
     displayLarge: AppTextTheme.textHeadingDark,
     displayMedium: AppTextTheme.textHeading2Dark,
+    displaySmall: AppTextTheme.textHeading3Dark,
     bodyLarge: AppTextTheme.textPrimaryDark,
     bodyMedium: AppTextTheme.textSecondaryDark,
     bodySmall: AppTextTheme.textSmallDark,
