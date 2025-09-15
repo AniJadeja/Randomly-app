@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:randomly/l10n/generated/app_localizations.dart';
+import 'package:randomly/pages/home_screen.dart';
+import 'package:randomly/pages/restore-account/restore_screen.dart';
 import 'package:randomly/pages/signup/start_screen.dart';
 import 'package:randomly/realm-db/models/deviceinfo/device_info.dart';
 import 'package:randomly/realm-db/models/session/session_current.dart';
@@ -45,7 +47,7 @@ class Randomly extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      locale: Locale('es', ''),
+      locale: Locale('en', ''),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
 
@@ -55,7 +57,8 @@ class Randomly extends StatelessWidget {
       theme: lightTheme,
       darkTheme: darkTheme,
 
-      home: StartScreen(),
+      // home: StartScreen(),
+      home: RestoreScreen(),
       // initialRoute: startScreenRoute ,
       routes: routes,
     );

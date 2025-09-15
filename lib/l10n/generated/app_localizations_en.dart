@@ -56,6 +56,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get clearButtonString => 'Clear';
 
   @override
+  String get cancelRestoreButtonString => 'Cancel Restore';
+
+  @override
+  String get enterPasswordHintString => 'Enter Your Password Here...';
+
+  @override
+  String get fileError5KBString => 'File is too large. Max size is 5KB.';
+
+  @override
+  String get keyFileProtectionString =>
+      'This keyfile is protected by user password';
+
+  @override
   String get genderDisclosureString =>
       'Disclosing your gender helps build trust among community and maintains integrity of subsequent chats.';
 

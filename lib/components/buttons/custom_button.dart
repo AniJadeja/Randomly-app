@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:randomly/components/snackbar/native_notifier.dart';
 import 'package:randomly/l10n/generated/app_localizations.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -43,7 +44,7 @@ class _TileButtonState extends State<TileButton> {
 
   bool get _isFileType => widget.fileType != null;
 
-  Future<void> _pickFile() async {
+  Future<void> _pickFile(AppLocalizations lang) async {
     List<XTypeGroup> acceptedTypeGroups = [];
     switch (widget.fileType) {
       case FileType.any:
@@ -73,13 +74,43 @@ class _TileButtonState extends State<TileButton> {
     try {
       final XFile? pickedXFile = await openFile(acceptedTypeGroups: acceptedTypeGroups);
       if (pickedXFile != null) {
+        // Create a dart:io File object from the XFile path.
+        final File file = File(pickedXFile.path);
+
+        // Check the file size in bytes.
+        final int sizeInBytes = await file.length();
+
+        const int maxFileSize = 5120; // 5 KB in bytes (5 * 1024)
+
+        // if (sizeInBytes > maxFileSize) {
+        //   // The file is too large.
+        //   print('Selected file is too large. Max size is 5KB.');
+        //   NativeNotifier.show(
+        //     context,
+        //     lang.fileError5KBString,
+        //   );
+        //   // You can also show an alert dialog or a SnackBar to the user here.
+        //   setState(() {
+        //     _isPressed = false;
+        //   });
+        //   return; // Exit the function.
+        // }
+
+        // If the file is within the size limit, proceed as before.
         setState(() {
-          _pickedFileName = pickedXFile.name;
+          String name = pickedXFile.name;
+          if (name.length > 3) {
+            String extension = name.contains('.') ? name.substring(name.lastIndexOf('.')) : '';
+            _pickedFileName = '${name.substring(0, 3)}....$extension';
+          } else {
+            _pickedFileName = name;
+          }
           _pickedFilePath = pickedXFile.path;
           _isSelected = true;
           _isPressed = false;
         });
         widget.onFilePicked?.call(File(pickedXFile.path), pickedXFile.path);
+
       } else {
         setState(() {
           _isPressed = false;
@@ -107,11 +138,11 @@ class _TileButtonState extends State<TileButton> {
     final textTheme = Theme.of(context).textTheme;
     final bool isPrimaryLike = widget.styleType == ButtonStyleType.primary;
     final bool isSecondary = widget.styleType == ButtonStyleType.secondary;
-    final bool isSecondaryAndSelected = isSecondary && _isSelected;
     final lang = AppLocalizations.of(context)!;
 
     final Color unselectedBackgroundColor = Color(0xFF1E1E1E);
     final Color secondarySelectedBackgroundColor = Color(0xFF101010);
+
 
     final Gradient primaryUnselectedBackgroundGradient = LinearGradient(
       colors: [unselectedBackgroundColor, unselectedBackgroundColor],
@@ -202,7 +233,7 @@ class _TileButtonState extends State<TileButton> {
       onTap: () async {
         if (_isFileType) {
           if (!_isSelected) {
-            await _pickFile();
+            await _pickFile(lang);
           }
         } else {
           if (!_isSelected) {

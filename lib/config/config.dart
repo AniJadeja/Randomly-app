@@ -10,11 +10,12 @@ final Color secondaryOnDark = Color(0xFF9C9C9C);
 final Color secondaryOnLight = Color(0xFF4F4F4F);
 
 final Color errorPrimary = Color(0xFFDB5A5A);
+final Color colorCancelAction = Color(0xFFE28879);
 final Color successPrimary = Color(0xFF5DDC60);
 
 final Color buttonShadow = Color(0x4D233D4D);
 
-final Color primaryBlackShadeOne = Color(0x2B1D2527);
+final Color primaryBlackShadeOne = Color(0xA8242C2D);
 final Color primaryBlackShadeTwo = Color(0xFF101215);
 final Color primaryBlackShadeThree = Color(0xFF434B4D);
 final Color appBarDark = Color(0xFF0E1012);

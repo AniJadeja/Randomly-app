@@ -186,6 +186,30 @@ abstract class AppLocalizations {
   /// **'Clear'**
   String get clearButtonString;
 
+  /// No description provided for @cancelRestoreButtonString.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel Restore'**
+  String get cancelRestoreButtonString;
+
+  /// No description provided for @enterPasswordHintString.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Your Password Here...'**
+  String get enterPasswordHintString;
+
+  /// No description provided for @fileError5KBString.
+  ///
+  /// In en, this message translates to:
+  /// **'File is too large. Max size is 5KB.'**
+  String get fileError5KBString;
+
+  /// No description provided for @keyFileProtectionString.
+  ///
+  /// In en, this message translates to:
+  /// **'This keyfile is protected by user password'**
+  String get keyFileProtectionString;
+
   /// No description provided for @genderDisclosureString.
   ///
   /// In en, this message translates to:

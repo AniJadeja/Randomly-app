@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:randomly/components/buttons/button_link.dart';
 import 'package:randomly/components/buttons/button_outlined.dart';
 import 'package:randomly/components/buttons/button_primary.dart';
-import 'package:randomly/components/buttons/button_text.dart';
+import 'package:randomly/components/buttons/button_secondary.dart';
 import 'package:randomly/components/radio-buttons/radio_button_outlined.dart';
 import 'package:randomly/components/snackbar/native_notifier.dart';
 import 'package:randomly/config/config.dart';
@@ -169,14 +169,15 @@ class _GenderPickerScreenState extends State<GenderPickerScreen> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 24),
+                  margin: EdgeInsets.symmetric(vertical: 24),
                   child: Stack(
                     children: [
-                      ButtonText(
+                      ButtonSecondary(
                         text: lang.cancelSignupButtonString,
                         onPressed: () {
                           SystemNavigator.pop(animated: true);
                         },
+                        isCancelAction: true,
                       ),
                       Positioned(
                         right: 24,

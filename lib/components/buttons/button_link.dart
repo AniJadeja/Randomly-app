@@ -1,4 +1,4 @@
-// button_text.dart
+// button_secondary.dart
 
 import 'package:flutter/material.dart';
 import 'package:randomly/config/config.dart';

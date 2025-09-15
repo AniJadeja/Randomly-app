@@ -16,6 +16,10 @@
   "knowMoreString" : "To know more ",
   "clickHereString" : "Click Here",
   "clearButtonString" : "Clear",
+  "cancelRestoreButtonString" : "Cancel Restore",
+  "enterPasswordHintString" : "Enter Your Password Here...",
+  "fileError5KBString" : "File is too large. Max size is 5KB.",
+  "keyFileProtectionString" : "This keyfile is protected by user password",
 
   "genderDisclosureString" : "Disclosing your gender helps build trust among community and maintains integrity of subsequent chats.",
   "genderSelectorInstruction" : "Please select your gender",
